@@ -212,6 +212,8 @@ cmd & cmd::operator=(cmd && copier)
 */
 void cmd::execute(int _pipe_i, int _pipe_o, const cmd * prev)
 {
+    if(0==strcmp(this->cmd_name, "exit"))
+        exit(TERMINATOR);
     if(iFile!=NO_REDIRCT) dup2(iFile, STDIN_FILENO);
     if(oFile!=NO_REDIRCT) dup2(oFile, STDOUT_FILENO);
     if(prev!=nullptr && prev->relation_next == cmd::Pipe)

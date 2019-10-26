@@ -216,7 +216,15 @@ void parser::operator() () const
                 break;
         }
     }
-    command_constructor(word_lst, connectors, iFd, oFd, word_lst.size()-1, prev, iFid, oFid, cmd::End);
+    #ifndef DEBUG
+    ret.push_back(
+    #endif
+    command_constructor(word_lst, connectors, iFd, oFd, word_lst.size()-1, prev, iFid, oFid, cmd::End)
+    #ifndef DEBUG
+    );
+    #else
+    ;
+    #endif
     #ifndef DEBUG
     return ret;
     #endif

@@ -56,6 +56,11 @@ public:
     }
     #endif
 
+    bool is_empty_input() const
+    {
+        return buf.size()==0;
+    }
+
     friend std::istream & operator >> (std::istream & cin, parser &);
     #ifdef DEBUG
     friend void command_constructor(const vector<string> & words,
