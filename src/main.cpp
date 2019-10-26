@@ -15,6 +15,9 @@ int main()
         pid_t * pids = new pid_t[cmds.size()];
         int * results = new int[cmds.size()];
         int * pipes = new int [cmds.size()*2];
+        //TODO_1 cannot execute the command
+        //TODO_2 no implement of the exit
+        //TODO_3 parsing erro with no exception thrown
         for(unsigned int i=0; i<cmds.size(); i++)
         {
             saferpipe(pipes+(2*i));
