@@ -60,6 +60,10 @@ class cmd
 
         fd_t iFd_open(const string & iFile_name);
         fd_t oFd_open(const string & oFile_name);
+
+        friend bool change_dir(const cmd &);
 };
+
+bool change_dir(const cmd & _cmd);
 
 #endif

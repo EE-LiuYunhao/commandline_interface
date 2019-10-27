@@ -266,3 +266,31 @@ fd_t cmd::oFd_open(const string & oFile_name)
     return oFd;
 }
 
+/**
+ * Check whether the cmd is a cd and change the directory if so
+ * 
+ * @param: void
+ * @reval: whether the cmd is a cd
+ */ 
+bool change_dir(const cmd & _cmd)
+{
+    if(0==strcmp(_cmd.cmd_name, "cd"))
+    {
+        if(2==_cmd.argvc)
+        {
+            if(chdir(_cmd.argv_lst[1]))
+                cerr<<"Not a directory"<<endl;
+        }
+        else if(1==_cmd.argvc)
+        {
+            if(chdir(getenv("HOME")))
+                cerr<<"Not a directory"<<endl;
+        }
+        else
+            cerr<<"Parser error around \"cd\""<<endl;
+    }
+    else
+        return false;
+    return true;
+}
+
