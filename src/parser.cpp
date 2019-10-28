@@ -216,15 +216,17 @@ void parser::operator() () const
                 break;
         }
     }
-    #ifndef DEBUG
-    ret.push_back(
-    #endif
-    command_constructor(word_lst, connectors, iFd, oFd, word_lst.size()-1, prev, iFid, oFid, cmd::End)
-    #ifndef DEBUG
-    );
-    #else
-    ;
-    #endif
+    if(connectors.back().sym!=parser::Bgk)
+        #ifndef DEBUG
+        ret.push_back(
+        #endif
+        command_constructor(word_lst, connectors, iFd, oFd, word_lst.size()-1, prev, iFid, oFid, cmd::End)
+        #ifndef DEBUG
+        );
+        #else
+        ;
+        #endif
+    
     #ifndef DEBUG
     return ret;
     #endif

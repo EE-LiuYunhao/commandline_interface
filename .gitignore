@@ -1,0 +1,5 @@
+*.o
+tester_obj/*
+tester_bin/*
+obj/*
+bin/*

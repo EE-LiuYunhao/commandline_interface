@@ -43,6 +43,10 @@ class cmd
             }
         }
 
+        char * get_command_name() const
+        {
+            return this->cmd_name;
+        }
         symbol get_relation2next() const
         {
             return this->relation_next;
@@ -62,8 +66,10 @@ class cmd
         fd_t oFd_open(const string & oFile_name);
 
         friend bool change_dir(const cmd &);
+        friend int check_exit(const cmd & _cmd);
 };
 
 bool change_dir(const cmd & _cmd);
+int check_exit(const cmd & _cmd);
 
 #endif

@@ -212,8 +212,6 @@ cmd & cmd::operator=(cmd && copier)
 */
 void cmd::execute(int _pipe_i, int _pipe_o, const cmd * prev)
 {
-    if(0==strcmp(this->cmd_name, "exit"))
-        exit(TERMINATOR);
     if(iFile!=NO_REDIRCT) dup2(iFile, STDIN_FILENO);
     if(oFile!=NO_REDIRCT) dup2(oFile, STDOUT_FILENO);
     if(prev!=nullptr && prev->relation_next == cmd::Pipe)
@@ -232,12 +230,13 @@ void cmd::execute(int _pipe_i, int _pipe_o, const cmd * prev)
                 cerr<<"BOTH PIPE AND REDIRCT"<<endl;
             break;
         case Bgk:
-            if(0==saferfork()) exit(0);
+            if(0!=saferfork()) exit(0);
         default:
             break;
     }
     close(_pipe_o);
     execvp(cmd_name,argv_lst);
+    exit(0);
 }
 
 /**
@@ -269,7 +268,7 @@ fd_t cmd::oFd_open(const string & oFile_name)
 /**
  * Check whether the cmd is a cd and change the directory if so
  * 
- * @param: void
+ * @param: _cmd ---- const reference to one cmd object
  * @reval: whether the cmd is a cd
  */ 
 bool change_dir(const cmd & _cmd)
@@ -292,5 +291,19 @@ bool change_dir(const cmd & _cmd)
     else
         return false;
     return true;
+}
+/**
+ * Check whether the cmd is a exit
+ * 
+ * @param: void
+ * @reval: 0 if the command is not exit
+ *         TERMINATOR otherwise
+ */ 
+int check_exit(const cmd & _cmd)
+{
+    if(0==memcmp(_cmd.cmd_name, "exit", 4))
+        return TERMINATOR;
+    else
+        return 0;
 }
 
